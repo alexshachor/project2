@@ -5,6 +5,6 @@
 #ifndef PROJECT2_CLIENTHANDLER_H
 #define PROJECT2_CLIENTHANDLER_H
 
-// BLAaaaaaaa
+// BLAaaaaaaaaaaa
 
 #endif //PROJECT2_CLIENTHANDLER_H

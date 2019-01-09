@@ -5,8 +5,7 @@
 #ifndef PROJECT2_SOLVER_H
 #define PROJECT2_SOLVER_H
 
+//blablabla!
 
-
-//bla!
 
 #endif //PROJECT2_SOLVER_H

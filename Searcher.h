@@ -7,20 +7,37 @@
 
 #include "ISearcher.h"
 #include <vector>
+#include <queue>
 
 template<class Solution, class T>
 class Searcher : public ISearcher<Solution, T> {
 private:
-    int nodesNumber;
-    std::vector<State<T> *> open;
+    int evaluatedNodes;
+    std::priority_queue<State<T> *> open;
 public:
     Searcher() {
-        this->nodesNumber = 0;
+        this->evaluatedNodes = 0;
     }
-    State<T>* popOpenList() {
-        this->nodesNumber++;
-        return open.
+
+    void addToOpenList(State<T> *newState) {
+        this->open.push(newState);
     }
+
+    State<T> *popOpenList() {
+        this->evaluatedNodes++;
+        State<T> *ret = open.top();
+        open.pop();
+        return ret;
+    }
+
+    long OpenListSize() {
+        return open.size();
+    }
+
+    int getNumberNodesEvaluated() {
+        return evaluatedNodes;;
+    }
+
     virtual Solution search(Searchable<T> *searchable) = 0;
 };
 

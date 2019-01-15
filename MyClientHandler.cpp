@@ -4,4 +4,11 @@
 
 #include "MyClientHandler.h"
 
-void MyClientHandler::handleClient(int sockfd) {}
+MyClientHandler::MyClientHandler(Solver<string, string> solver, CacheManager cacheManager) {
+    this->solver = solver;
+    this->cacheManager = cacheManager;
+}
+
+void MyClientHandler::handleClient(int sockfd) {
+    posix_sockets::TcpClient client(sockfd);
+}

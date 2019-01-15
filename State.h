@@ -47,13 +47,14 @@ public:
     bool operator<(const State<T> &other) const {
         return !(this->cost > other.cost);
     }
+
 };
 
 template<class T>
 class StateHashFunction {
 public:
     size_t operator()(const State<T> &state) const {
-        return (size_t)(state);
+        return (size_t)(state).getState();
     }
 };
 

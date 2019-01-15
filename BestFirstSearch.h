@@ -11,6 +11,24 @@
 template<class Solution, class T>
 class BestFirstSearch : public Searcher<Solution, T> {
 
+private:
+    std::unordered_set<State<T> *, StateHashFunction<T> > closed;
+
+    bool isInClosedList(State<T> *state) {
+        if (closed.find(state) == closed.end()) {
+            return false;
+        }
+        return true;
+    }
+
+    State<T> *getElementFromClosed(State<T> *state) {
+        State<T> *result = nullptr;
+        if (isInClosedList(state)) {
+            result = closed.find(state);
+        }
+        return result;
+    }
+
     std::vector<State<T> *> backTrace(State<T> *state) {
 
         std::vector<State<T> *> result;
@@ -31,7 +49,9 @@ class BestFirstSearch : public Searcher<Solution, T> {
 
         typename std::vector<State<T> *>::iterator it;
         for (it = trace.begin(); it != trace.end(); it++) {
-            result += it->getCost();
+            if (it->getCameFrom() != nullptr) {
+                result += it->getCost();
+            }
         }
 
         return result;
@@ -39,11 +59,10 @@ class BestFirstSearch : public Searcher<Solution, T> {
 
 public:
 
-
     Solution search(Searchable<T> *searchable) {
 
         addToOpenList(searchable->getInitialState());
-        std::unordered_set<State<T> *, StateHashFunction<T> > closed;
+
         while (openListSize() > 0) {
             State<T> *state = popOpenList();
             closed.insert(state);
@@ -59,18 +78,22 @@ public:
                 if ((closed.find(vecIt) == closed.end()) &&
                     !isInOpenList(vecIt)) {
                     vecIt->setCameFrom(state);
-                    vecIt->setCost += state->getCost();
                     addToOpenList(vecIt);
                 } else {
-
-                    //Otherwise, if this new path is better than previous one
-                    //i. If it is not in OPEN add it to OPEN.
-                    //ii. Otherwise, adjust its priority in OPEN
+                    State<T>* prev = getElementFromOpen(vecIt);
+                    if (prev == nullptr) {
+                        prev = getElementFromClosed(vecIt);
+                    }
+                    if (sumTrace(state) + vecIt->getCost() < sumTrace(prev)) {
+                        vecIt->setCameFrom(state);
+                        if (!isInOpenList(vecIt)) {
+                            addToOpenList(vecIt);
+                        }
+                    }
                 }
             }
         }
     }
-
 };
 
 

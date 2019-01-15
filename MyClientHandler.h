@@ -6,9 +6,16 @@
 #define PROJECT2_MYCLIENTHANDLER_H
 
 #include "ClientHandler.h"
+#include "Solver.h"
+#include "CacheManager.h"
 
 class MyClientHandler : public ClientHandler {
+private:
+    Solver<string, string> solver;
+    CacheManager cacheManager;
 public:
+    MyClientHandler(Solver<string, string> solver, CacheManager cacheManager);
+
     void handleClient(int sockfd);
 };
 

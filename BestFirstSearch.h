@@ -61,10 +61,10 @@ public:
 
     Solution search(Searchable<T> *searchable) {
 
-        addToOpenList(searchable->getInitialState());
+        Searcher<Solution, T>::addToOpenList(searchable->getInitialState());
 
-        while (openListSize() > 0) {
-            State<T> *state = popOpenList();
+        while (Searcher<Solution, T>::openListSize() > 0) {
+            State<T> *state = Searcher<Solution, T>::popOpenList();
             closed.insert(state);
             if (state == searchable->getIGoallState()) {
                 return backTrace(state);
@@ -73,21 +73,20 @@ public:
             std::vector<State<T> *> succerssors =
                     searchable->getAllPossibleStates(state);
             typename std::vector<State<T> *>::iterator vecIt;
-            for (vecIt = succerssors.begin(); vecIt != succerssors.end();
-                 vecIt++) {
+            for (vecIt = succerssors.begin(); vecIt != succerssors.end(); vecIt++) {
                 if ((closed.find(vecIt) == closed.end()) &&
-                    !isInOpenList(vecIt)) {
+                    !Searcher<Solution, T>::isInOpenList(vecIt)) {
                     vecIt->setCameFrom(state);
-                    addToOpenList(vecIt);
+                    Searcher<Solution, T>::addToOpenList(vecIt);
                 } else {
-                    State<T>* prev = getElementFromOpen(vecIt);
+                    State<T> *prev = Searcher<Solution, T>::getElementFromOpen(vecIt);
                     if (prev == nullptr) {
                         prev = getElementFromClosed(vecIt);
                     }
                     if (sumTrace(state) + vecIt->getCost() < sumTrace(prev)) {
                         vecIt->setCameFrom(state);
-                        if (!isInOpenList(vecIt)) {
-                            addToOpenList(vecIt);
+                        if (!Searcher<Solution, T>::isInOpenList(vecIt)) {
+                            Searcher<Solution, T>::addToOpenList(vecIt);
                         }
                     }
                 }

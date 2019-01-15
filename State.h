@@ -5,7 +5,9 @@
 #ifndef PROJECT2_STATE_H
 #define PROJECT2_STATE_H
 
-template <class T>
+#include <cstddef>
+
+template<class T>
 class State {
 private:
     T state;
@@ -15,7 +17,7 @@ public:
     State(T state, double cost, State<T> cameFrom) {
         this->state = state;
         this->cost = cost;
-        this->cameFrom= cameFrom;
+        this->cameFrom = cameFrom;
     }
 
     T getState() {
@@ -36,6 +38,22 @@ public:
 
     void setCameFrom(State<T> cameFrom) {
         this->cameFrom = cameFrom;
+    }
+
+    bool operator==(const State<T> &other) const {
+        return (this->getState() == other.getState());
+    }
+
+    bool operator<(const State<T> &other) const {
+        return !(this->cost > other.cost);
+    }
+};
+
+template<class T>
+class StateHashFunction {
+public:
+    size_t operator()(const State<T> &state) const {
+        return (size_t)(state);
     }
 };
 

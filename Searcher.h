@@ -6,19 +6,19 @@
 #define PROJECT2_SEARCHER_H
 
 #include "ISearcher.h"
+#include "State.h"
 #include <vector>
 #include <queue>
 
+
 template<class Solution, class T>
 class Searcher : public ISearcher<Solution, T> {
+
 private:
     int evaluatedNodes;
     std::priority_queue<State<T> *> open;
-public:
-    Searcher() {
-        this->evaluatedNodes = 0;
-    }
 
+protected:
     void addToOpenList(State<T> *newState) {
         this->open.push(newState);
     }
@@ -30,12 +30,28 @@ public:
         return ret;
     }
 
-    long OpenListSize() {
+    long openListSize() {
         return open.size();
     }
 
+    bool isInOpenList(State<T> *state) {
+        std::priority_queue<State<T> *> temp = open;
+        while(!temp.empty()) {
+            if (temp.top() == state) {
+                return true;
+            }
+            temp.pop();
+        }
+        return false;
+    }
+
+public:
+    Searcher() {
+        this->evaluatedNodes = 0;
+    }
+
     int getNumberNodesEvaluated() {
-        return evaluatedNodes;;
+        return evaluatedNodes;
     }
 
     virtual Solution search(Searchable<T> *searchable) = 0;

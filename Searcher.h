@@ -45,6 +45,19 @@ protected:
         return false;
     }
 
+    State<T>* getElementFromOpen(State<T>* state) {
+        std::priority_queue<State<T> *> temp = open;
+        if (isInOpenList(state)) {
+            while(!temp.empty()) {
+                if (temp.top() == state) {
+                    return temp.top();
+                }
+                temp.pop();
+            }
+        }
+        return nullptr;
+    }
+
 public:
     Searcher() {
         this->evaluatedNodes = 0;

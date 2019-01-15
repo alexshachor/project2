@@ -7,6 +7,9 @@
 
 #include "Searchable.h"
 #include <string>
+#include <algorithm>
+
+#define BLOCKED_COST_VALUE -1
 
 using namespace std;
 
@@ -17,11 +20,11 @@ private:
     State<pair<int, int>> *initialState;
     State<pair<int, int>> *goalState;
 
-    State<pair<int, int>> *getStateByPos(pair<int, int>);
+    State<pair<int, int>> *getStateByPos(pair<int, int> pos);
 
 public:
-    MatrixSearchable(vector<vector<string>>
-                     matrixStr, vector<string>
+    MatrixSearchable(const vector<vector<string>>
+                     &matrixStr, vector<string>
                      initState, vector<string>
                      goalState);
 
@@ -30,6 +33,8 @@ public:
     bool isGoalState(State<pair<int, int>> *state);
 
     vector<State<pair<int, int>> *> getAllPossibleStates(State<pair<int, int>> *state);
+
+    ~MatrixSearchable();
 };
 
 

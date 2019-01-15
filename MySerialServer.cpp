@@ -23,7 +23,6 @@ MySerialServer::MySerialServer() {
 }
 
 void MySerialServer::open(int port, ClientHandler clientHandler) {
-
     runServer = true;
     std::thread serverThread(&MySerialServer::runServerThread, this, port, std::ref(clientHandler));
 }

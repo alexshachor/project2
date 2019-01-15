@@ -11,4 +11,13 @@ MyClientHandler::MyClientHandler(Solver<string, string> solver, CacheManager cac
 
 void MyClientHandler::handleClient(int sockfd) {
     posix_sockets::TcpClient client(sockfd);
+    StringHelper stringHelper;
+
+    string output = client.readUntil(END_CONVERSATION_WORD);
+    std::vector<string> lines = stringHelper.splitByStr(output, NEW_LINE);
+    std::vector<std::vector<string>> matrix;
+    for (int i = 0; i < lines.size(); ++i) {
+        vector<string> values = stringHelper.splitByStr(lines[i], VALUES_DELIMETER);
+        matrix.push_back(values);
+    }
 }

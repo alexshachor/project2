@@ -5,6 +5,8 @@
 #ifndef PROJECT2_CLIENTHANDLER_H
 #define PROJECT2_CLIENTHANDLER_H
 
+#include "Sockets.h"
+
 using namespace std;
 
 class ClientHandler {

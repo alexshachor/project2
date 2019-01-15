@@ -6,5 +6,5 @@ set(CMAKE_CXX_FLAGS -pthread)
 
 add_executable(project2 main.cpp ClientHandler.h Solver.h Server.h
         MySerialServer.cpp MySerialServer.h MyClientHandler.cpp
-        MyClientHandler.h CacheManager.h Searchable.h State.cpp State.h
-        ISearcher.h Searcher.h BestFirstSearch.h BestFirstSearch.cpp MyExceptions.h Sockets.cpp Sockets.h FileCacheManager.cpp FileCacheManager.h)
+        MyClientHandler.h CacheManager.h Searchable.h State.h
+        ISearcher.h Searcher.h BestFirstSearch.h BestFirstSearch.cpp MyExceptions.h Sockets.cpp Sockets.h FileCacheManager.cpp FileCacheManager.h StringHelper.cpp StringHelper.h MatrixSearchable.cpp MatrixSearchable.h)

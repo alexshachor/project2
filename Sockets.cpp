@@ -47,10 +47,16 @@ int TcpClient::getSockfd() {
 
 TcpClient::TcpClient(TcpSocket sock) : sock(sock) {}
 
-// you should definitely use your own logic here
-// suggestions are - read_until (char), read_min(int)
-// read_line, etc.
-// you can obviously define a write (or send) method
+void TcpClient::sendMessage(std::string message) {
+    /* Send message through the socket */
+    int n = write(getSockfd(), message.c_str(), message.size());
+
+    if (n < 0) {
+        perror("ERROR writing to socket");
+        exit(1);
+    }
+}
+
 std::string TcpClient::read(int n) {
     char *buffer = new char[n + 1];
     int readLen = ::read(sock.sockfd, buffer, n);
@@ -66,6 +72,7 @@ std::string TcpClient::read(int n) {
     delete[] buffer;
     return output;
 }
+
 
 std::string TcpClient::readLine() {
     return readUntil(NEW_LINE);
@@ -102,6 +109,9 @@ std::string TcpClient::readUntil(std::string untilStr) {
     }
     buf[buffIndex + 1] = 0;
     output = std::string(buf);
+    StringHelper stringHelper;
+    //get the output without the untilStr
+    output = stringHelper.getSubStringBeforeStr(output, untilStr);
     return output;
 }
 

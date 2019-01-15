@@ -9,6 +9,9 @@
 #include "Solver.h"
 #include "CacheManager.h"
 
+#define END_CONVERSATION_WORD "end"
+#define VALUES_DELIMETER ","
+
 class MyClientHandler : public ClientHandler {
 private:
     Solver<string, string> solver;

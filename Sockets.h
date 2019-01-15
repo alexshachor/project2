@@ -10,6 +10,7 @@
 #include <unistd.h>
 #include <cerrno>
 #include "MyExceptions.h"
+#include "StringHelper.h"
 
 #define NEW_LINE "\n"
 #define BUFFLEN 2046
@@ -42,6 +43,8 @@ namespace posix_sockets {
         TcpClient(TcpSocket sock);
 
         int getSockfd();
+
+        void sendMessage(std::string message);
 
         std::string read(int n);
 

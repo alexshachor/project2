@@ -5,7 +5,7 @@
 #ifndef PROJECT2_SOLVER_H
 #define PROJECT2_SOLVER_H
 
-template<class P, class S>
+template<class S, class P>
 class Solver {
 public:
     virtual S solve(P problem) = 0;

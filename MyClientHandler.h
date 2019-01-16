@@ -14,12 +14,14 @@
 
 class MyClientHandler : public ClientHandler {
 private:
-    Solver<string, string> solver;
-    CacheManager cacheManager;
+    Solver<string, vector<vector<string>>> *solver;
+    //CacheManager cacheManager;
 public:
-    MyClientHandler(Solver<string, string> solver, CacheManager cacheManager);
+    MyClientHandler(Solver<string, vector<vector<string>>> *solver, CacheManager *cacheManager);
 
     void handleClient(int sockfd);
+
+    ~MyClientHandler();
 };
 
 

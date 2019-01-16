@@ -59,6 +59,7 @@ void TcpClient::sendMessage(std::string message) {
 
 std::string TcpClient::read(int n) {
     char *buffer = new char[n + 1];
+    bzero(buffer, BUFFLEN);
     int readLen = ::read(sock.sockfd, buffer, n);
     if (readLen < 0) {
         if (errno == EAGAIN || errno == EWOULDBLOCK) {
@@ -86,7 +87,7 @@ std::string TcpClient::readUntil(std::string untilStr) {
     char buf[BUFFLEN] = {0};
     std::string output;
     std::string temp;
-
+    bzero(buf, BUFFLEN);
     while (buffIndex < BUFFLEN) {
         int readLen = ::read(sock.sockfd, &buf[buffIndex], numOfBytes);
         if (readLen < 0) {
@@ -126,6 +127,7 @@ void TcpClient::close() {
 
 TcpServer::TcpServer(int port) {
     sockaddr_in addrIn;
+    bzero((char *) &addrIn, sizeof(addrIn));
     addrIn.sin_family = AF_INET;
     addrIn.sin_port = htons(port);
     addrIn.sin_addr.s_addr = INADDR_ANY;

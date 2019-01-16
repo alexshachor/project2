@@ -4,9 +4,9 @@
 
 #include "MyClientHandler.h"
 
-MyClientHandler::MyClientHandler(Solver<string, string> solver, CacheManager cacheManager) {
+MyClientHandler::MyClientHandler(Solver<string, vector<vector<string>>> *solver, CacheManager *cacheManager) {
     this->solver = solver;
-    this->cacheManager = cacheManager;
+    //this->cacheManager = cacheManager;
 }
 
 void MyClientHandler::handleClient(int sockfd) {
@@ -20,4 +20,12 @@ void MyClientHandler::handleClient(int sockfd) {
         vector<string> values = stringHelper.splitByStr(lines[i], VALUES_DELIMETER);
         matrix.push_back(values);
     }
+
+    string result = solver->solve(matrix);
+    client.sendMessage(result);
+}
+
+MyClientHandler::~MyClientHandler() {
+    delete this->solver;
+    //delete this->cacheManager
 }

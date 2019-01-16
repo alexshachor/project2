@@ -12,9 +12,9 @@ class State {
 private:
     T state;
     double cost;
-    State<T> cameFrom;
+    State<T> *cameFrom;
 public:
-    State(T state, double cost, State<T> cameFrom) {
+    State(T state, double cost, State<T> *cameFrom) {
         this->state = state;
         this->cost = cost;
         this->cameFrom = cameFrom;
@@ -28,7 +28,7 @@ public:
         return this->cost;
     }
 
-    State<T> getCameFrom() {
+    State<T> *getCameFrom() {
         return this->cameFrom;
     }
 
@@ -36,7 +36,7 @@ public:
         this->cost = cost;
     }
 
-    void setCameFrom(State<T> cameFrom) {
+    void setCameFrom(State<T> *cameFrom) {
         this->cameFrom = cameFrom;
     }
 
@@ -54,7 +54,7 @@ template<class T>
 class StateHashFunction {
 public:
     size_t operator()(const State<T> &state) const {
-        return (size_t)(state).getState();
+        return (size_t) (state).getCost();
     }
 };
 

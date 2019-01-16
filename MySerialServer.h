@@ -20,11 +20,13 @@ private:
 public:
     MySerialServer();
 
-    void runServerThread(int port, ClientHandler clientHandler);
+    void runServerThread(int port, ClientHandler *clientHandler);
 
-    void open(int port, ClientHandler clientHandler);
+    void open(int port, ClientHandler *clientHandler);
 
     void stop();
+
+    ~MySerialServer();
 };
 
 

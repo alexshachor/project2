@@ -9,6 +9,7 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <cerrno>
+#include <string.h>
 #include "MyExceptions.h"
 #include "StringHelper.h"
 

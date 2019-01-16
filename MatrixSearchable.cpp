@@ -41,12 +41,12 @@ vector<State<pair<int, int>> *> MatrixSearchable::getAllPossibleStates(State<pai
     vector<State<pair<int, int>> *> result;
     pair<int, int> pos = state->getState();
     int x = pos.first, y = pos.second;
-    if (matrix.size()) {
+    if (!matrix.empty()) {
         int rowLimit = matrix.size() - 1;
         int colLimit = matrix[0].size() - 1;
         for (int i = max(0, x - 1); i <= min(x + 1, rowLimit); ++i) {
             for (int j = max(0, y - 1); j <= min(y + 1, colLimit); ++j) {
-                if (i != x || j != y) {
+                if ((i != x && j == y) || (j != y && i == x)) {
                     if (matrix[i][j]->getCost() != BLOCKED_COST_VALUE) {
                         result.push_back(matrix[i][j]);
                     }
